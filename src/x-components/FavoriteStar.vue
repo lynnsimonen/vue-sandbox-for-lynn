@@ -2,7 +2,6 @@
   <div>
     FAVORITE STAR
       <q-btn
-          disable
           flat
           icon="star_border"
           v-on:click="item.regularStar()"
