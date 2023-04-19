@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>iTunes</title>
+    <link href="itunes.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+<div>
+    <h3>iTunes Search Form</h3>
+    <input type="text" id="search" placeholder="Enter Search Item"><br>
+    <br>
+    <button id="search-btn">SEARCH</button>
+    <p id="search-confirm" style="color:blue;"></p>
+</div>
+
+
+<div class="container-fluid mt-3 col-sm-4">
+<!--    <img src="" alt="Album Cover" id="album-cover" style="width:100%">-->
+    <div class="card">
+        <div id="api-results" style="border: dodgerblue 2px;">Loading...</div>
+    </div>
+</div>
+
+<!--script-->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="itunesAjax.js"></script>
+</body>
+</html>
