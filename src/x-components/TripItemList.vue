@@ -23,7 +23,7 @@
 console.log("TRIP ITEM LIST");
 import SortForm from "@/x-components/SortForm.vue";
 import EventItemCard from "@/x-components/EventItemCard.vue";
-import {EventTrip} from "@/x-models/trip-model";
+import {EventTrip, PhotoGroupArray, PhotosArray} from "@/x-models/trip-model";
 import TravelEvent from "@/x-models/travel-event-model";
 export default {
   name: "TripItemList",
@@ -35,18 +35,39 @@ export default {
     return {
       trips: [
         new TravelEvent(new EventTrip('France Family Trip - 2018',
-            'France was great',
+            'France was great. llllllllllllllllllllllllllll lllllllllllllllllllllllllllllllllllllllll',
             '03/27/2018',
             '04/05/2018',
             'a',
-            true)),
+            true,
+            [new PhotoGroupArray('Day One',
+                    [new PhotosArray
+                                    ('src/images/FR_01.jpg', 'caption-one'),
+                                    ('src/images/FR_02.jpg', 'caption-one'),
+                                  ]
+                          )],
+                        [new PhotoGroupArray('Day Two',
+                   [new PhotosArray
+                                    ('src/images/FR_03.jpg', 'caption-one'),
+                                ]
+                        )], //end last photoGroupArray
+
+            )), //end new TravelEvent
 
         new TravelEvent(new EventTrip('Southern Family Trip - 2019',
             'Trip was great',
             '03/24/2019',
             '04/02/2019',
             'b',
-            false)),
+            false,
+            [new PhotoGroupArray
+                            ('Day Two',
+                                [new PhotosArray
+                                ('one.jpg', 'caption-one'),
+                                  ('src/images/FR_01.JPG','caption-two'),
+                                  ('three.jpg','caption-three')
+                                ])
+                            ])),
 
         new TravelEvent(new EventTrip('Island Family Trip - 2021',
             'We had fun',

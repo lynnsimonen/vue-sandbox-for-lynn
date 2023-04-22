@@ -1,33 +1,39 @@
-function EventTrip(title, tripDescription, arrivalDate, returnDate, key, favorite ) {
-    this.title = title ?? 'Default Title';
-
-    // add any additional properties
+function EventTrip(title, tripDescription, arrivalDate, returnDate, key,
+                   favorite, photoGroupArray) {
+    this.title = title ?? '';
     this.tripDescription = tripDescription ?? '';
+    // add any additional properties
     this.arrivalDate = arrivalDate ?? '';
     this.returnDate = returnDate ?? '';
     this.key = key ?? '';
     this.favorite = favorite ?? false;
+    this.photoGroupArray = photoGroupArray ?? [];
+    this.save = function(newObj){
+        this.title = newObj.title;
+        this.photosArray = newObj.photosArray;
+    }
 }
 EventTrip.type = "EventTrip";
 
-class EventExcursion {
-    //class is an object AND the same as a constructor function!!!
-    // Syntactic Sugar
-    title = '';
-    duration = 0;
-    static type = 'EventExcursion';
-    arrivalDateTime = '';
-    key = '';
-    favorite = false;
-
-    constructor(title, duration, arrivalDateTime, key, favorite) {
-        this.title = title ?? '';
-        this.duration = duration ?? 0;
-        this.arrivalDateTime = arrivalDateTime ?? '';
-        this.key = key ?? '';
-        this.favorite = favorite ?? false;
+function PhotoGroupArray(title, photosArray,photo, photoCaption) {  //this will auto-label the title & photosArray  "Chapters"
+    this.title = title ?? '';
+    this.photosArray = photosArray ?? [];
+    this.photo = photo ?? '';
+    this.photoCaption = photoCaption ?? '';
+    this.save = function(newObj){
+        this.photo = newObj.photo;
+        this.photoCaption = newObj.photoCaption;
     }
 }
 
-export {EventTrip, EventExcursion};
+function PhotosArray(photo, photoCaption){   //this will auto-label the photos & photoCaptions "topics"
+    this.photo = photo ?? '';
+    this.photoCaption = photoCaption ?? '';
+    this.save = function(newObj){
+        this.photo = newObj.photo;
+        this.photoCaption = newObj.photoCaption;
+    }
+}
+
+export {EventTrip, PhotoGroupArray, PhotosArray};
 

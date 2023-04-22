@@ -7,7 +7,10 @@
     <template v-slot:header>
       <q-item-section side>
         <!-- put a star here if the favorite input star is checked -->
-          <FavoriteStar></FavoriteStar>
+        <q-icon
+            v-bind:class="isFavorite === item.favorite ? 'white' : 'yellow'"
+            name="star"
+        ></q-icon>
       </q-item-section>
 
       <q-item-section>
@@ -16,29 +19,39 @@
       </q-item-section>
 
       <q-item-section side top>
-        <q-item-label caption>{{lengthOfTrip}} day trip</q-item-label>
+        <q-item-label caption>{{lengthOfTrip(item)}} day trip</q-item-label>
       </q-item-section>
 
     </template>
     <q-card>
       <q-card-section>
         <div class="row q-col-gutter-x-xs q-col-gutter-y-lg">
-            <span class="captains-log col-12">
-              Memories and Trip Notes
-            <FavoriteStar></FavoriteStar>
-            </span>
-          <p class="log col-12 q-pt-none">
+            <div class="captains-log col-12">
+                Memories & Trip Notes
+              <q-btn flat round icon="star"
+                     name="star"
+                     size="sm"
+                     @click="isFav(item)"
+                     :class="{
+                       'yellow-text' : item.favorite === true,
+                       'gray-text' : item.favorite === false,
+                     }"
+              >{{item.favorite? "FAV" : "Not FAV"}}</q-btn>
+            </div>
+          <div class="log col-12 q-py-none q-by-none">
+            <p q-by-none>
             {{ item.tripDescription }}
-          </p>
-          <span class="edit-delete-box col-12 q-mx-xl">
+            </p>
+          </div>
+          <span class="edit-delete-box col-12 q-mx-none q-my-none">
                 <q-btn
                     class="q-btn-edit"
                     color="grey"
                     dense
                     flat
                     icon="edit"
-                    padding="10px 10px"
-                    size="md"
+                    padding="0px 10px"
+                    size="sm"
                 >
                 </q-btn>
                 <q-btn
@@ -47,8 +60,9 @@
                     dense
                     flat
                     icon="delete_forever"
-                    padding="10px 10px"
-                    size="md"
+                    padding="0px"
+                    margin="0px"
+                    size="sm"
                     @click="deleteIt"
                 >
                 </q-btn>
@@ -56,6 +70,7 @@
           <span class="photo-groups col-11">Photo Groups</span>
         </div>
       </q-card-section>
+        <photo-group-list></photo-group-list>
       <!-- bind here
       <photo-group-list
           v-bind:photoGroups="trip.photoGroupArray"
@@ -67,38 +82,51 @@
 
 <script>
 import {EventTrip} from "@/x-models/trip-model";
-import FavoriteStar from "@/x-components/FavoriteStar.vue";
+import PhotoGroupList from "@/x-components/PhotoGroupList.vue";
 
 console.log("TRIP DETAILS");
 export default {
   name: "TripDetails",
-  components: {FavoriteStar},
+  data() {
+    return {
+      noteId:"noteId",  //"noteId" is a class
+      isFavorite: false,
+    }
+  },
+  components: {PhotoGroupList},
   props: {
     item: {type: EventTrip }
   },
   //this will tell me if I'm pulling the correct data... look on console
   created(){
-    console.log("lengthOfTrip() returnDate = ..." + this.item.item)
+
   },
   computed: {
-    lengthOfTrip() {
+  },
+  methods: {
+    isFav(item){
+     item.favorite = !item.favorite;
+      return item.favorite;
+    },
+    deleteIt(item) {
+      item.$emit('remove-trip', item);
+    },
+    lengthOfTrip(item) {
       // eslint-disable-next-line no-undef
-      let a = new Date(this.returnDate);
+      let a = new Date(item.returnDate);
       // eslint-disable-next-line no-undef
-      let b = new Date(this.returnDate);
+      let b = new Date(item.arrivalDate);
       // To calculate the time difference of two dates
       let Difference_In_Time = a.getTime() - b.getTime();
+
+      console.log(Difference_In_Time / (1000 * 3600 * 24))
 
       // To calculate the no. of days between two dates
       return Difference_In_Time / (1000 * 3600 * 24);
     }
-  },
-  methods: {
-    deleteIt(item) {
-      this.$emit('remove-trip', item);
-    },
   }
 }
+
 </script>
 
 <style lang="scss">
@@ -121,8 +149,21 @@ q-header {
   font-size: 30px;
 }
 
-.q-tab__icon, .star-yellow .q-icon  {
-  color: yellow;
+.gray-text{
+  text-color: gray;
+}
+.yellow-text{
+  text-color: goldenrod;
+}
+.yellow{
+  color: goldenrod;
+}
+.white{
+  color: white;
+}
+
+#noteId{
+  color:#2c8c37;
 }
 
 .sort-form {
@@ -162,7 +203,7 @@ q-header {
 }
 
 .captains-log, .photo-groups {
-  font-size: 16px;
+  font-size: 12px;
   margin-bottom: 0;
   margin-top: 0;
   top-margin: 0;
