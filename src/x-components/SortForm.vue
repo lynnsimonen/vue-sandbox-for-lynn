@@ -26,6 +26,7 @@ export default {
     let sortOptions = [
       {label: 'Title', value: 'title'},
       {label: 'Date', value: 'returnDate'},
+      {label: 'Favorites', value: 'favorite'},
     ];
     return {
       sortOptions,

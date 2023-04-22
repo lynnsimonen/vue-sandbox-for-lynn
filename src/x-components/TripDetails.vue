@@ -65,7 +65,7 @@
                     padding="0px"
                     margin="0px"
                     size="sm"
-                    @click="deleteIt"
+                    @click="deleteIt(item)"
                 >
                 </q-btn>
             </span>
