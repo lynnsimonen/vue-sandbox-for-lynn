@@ -28,9 +28,11 @@
         <div class="row q-col-gutter-x-xs q-col-gutter-y-lg">
             <div class="captains-log col-12">
                 Memories & Trip Notes
-              <q-btn flat round icon="star"
+              <q-btn outline style="color: black"
+                     flat
+                     icon="star"
                      name="star"
-                     size="sm"
+                     size="xs"
                      @click="isFav(item)"
                      :class="{
                        'yellow-text' : item.favorite === true,

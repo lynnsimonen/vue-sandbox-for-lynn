@@ -1,6 +1,5 @@
 <template>
-  <div>
-    SORT FORM<br>
+  <div><br>
 
   <q-form class="q-flex row q-mb-sm q-pa-xs">
     <q-select

@@ -1,6 +1,5 @@
 <template>
   <div>
-    Top of Trip Item List HTML
     <div class="row justify-between">
       <div class="col-3 col-sm-2">
         <sort-form
@@ -9,7 +8,6 @@
       </div>
     </div>
     <q-list bordered class="rounded-borders">
-      TRIP ITEM LIST...
       <div  v-for="item in trips"
             :item="item"
             :key="item.key">
@@ -35,7 +33,7 @@ export default {
     return {
       trips: [
         new TravelEvent(new EventTrip('France Family Trip - 2018',
-            'France was great. llllllllllllllllllllllllllll lllllllllllllllllllllllllllllllllllllllll',
+            'France was great. France was great.  France was great.  France was great.  France was great.  France was great.  France was great.',
             '03/27/2018',
             '04/05/2018',
             'a',
