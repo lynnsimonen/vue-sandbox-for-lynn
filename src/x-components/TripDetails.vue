@@ -65,7 +65,7 @@
                     padding="0px"
                     margin="0px"
                     size="sm"
-                    @click="deleteIt(item)"
+                    @click="$emit('deleteIt', item)"
                 >
                 </q-btn>
             </span>
@@ -91,7 +91,6 @@ export default {
   name: "TripDetails",
   data() {
     return {
-      noteId:"noteId",  //"noteId" is a class
       isFavorite: false,
     }
   },
@@ -110,9 +109,6 @@ export default {
      item.favorite = !item.favorite;
       return item.favorite;
     },
-    deleteIt(item) {
-      item.$emit('remove-trip', item);
-    },
     lengthOfTrip(item) {
       // eslint-disable-next-line no-undef
       let a = new Date(item.returnDate);
@@ -120,12 +116,9 @@ export default {
       let b = new Date(item.arrivalDate);
       // To calculate the time difference of two dates
       let Difference_In_Time = a.getTime() - b.getTime();
-
-      console.log(Difference_In_Time / (1000 * 3600 * 24))
-
       // To calculate the no. of days between two dates
       return Difference_In_Time / (1000 * 3600 * 24);
-    }
+    },
   }
 }
 
@@ -300,8 +293,6 @@ q-header {
 .q-input {
   color: #2c8c37;
 }
-
-
 
 .q-field__label {
   color: #2c8c37;

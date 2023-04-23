@@ -7,10 +7,12 @@
         ></sort-form>
       </div>
     </div>
-    <q-list bordered class="rounded-borders">
+    <q-list bordered >
       <div  v-for="item in trips"
             :item="item"
-            :key="item.key">
+            :key="item.key"
+
+      >
       <event-item-card :item="item"/>
       </div>
     </q-list>
@@ -24,9 +26,11 @@ import EventItemCard from "@/x-components/EventItemCard.vue";
 import {EventTrip, PhotoGroupArray, PhotosArray} from "@/x-models/trip-model";
 import TravelEvent from "@/x-models/travel-event-model";
 export default {
-  name: "TripItemList",
+  name: 'TripItemList',
+  emits: "delete-it",
   props: {
-    item: { type: TravelEvent}
+    item: { type: TravelEvent},
+    itemToBeSorted: undefined,
   },
   components: {SortForm, EventItemCard},
   data() {
@@ -38,19 +42,25 @@ export default {
             '04/05/2018',
             'a',
             true,
-            [new PhotoGroupArray('Day One',
+            [new PhotoGroupArray
+                ('Day One',
                     [new PhotosArray
                                     ('src/images/FR_01.jpg', 'caption-one'),
                                     ('src/images/FR_02.jpg', 'caption-one'),
-                                  ]
-                          )],
-                        [new PhotoGroupArray('Day Two',
-                   [new PhotosArray
+                                  ]),
+                        ('Day Two',
+                              [new PhotosArray
                                     ('src/images/FR_03.jpg', 'caption-one'),
-                                ]
-                        )], //end last photoGroupArray
+                                    ('src/images/FR_01.jpg', 'caption-one'),
+                                ]),
+                        ('Day Three',
+                              [new PhotosArray
+                                    ('src/images/FR_03.jpg', 'caption-one'),
+                                    ('src/images/FR_01.jpg', 'caption-one'),
+                                ]), //end last photoGroupArray
 
-            )), //end new TravelEvent
+            ], //end new TravelEvent
+        )),
 
         new TravelEvent(new EventTrip('Southern Family Trip - 2019',
             'Trip was great',
@@ -65,36 +75,54 @@ export default {
                                   ('src/images/FR_01.JPG','caption-two'),
                                   ('three.jpg','caption-three')
                                 ])
-                            ])),
+                            ]
+        )),
 
         new TravelEvent(new EventTrip('Island Family Trip - 2021',
             'We had fun',
             '07/09/2021',
             '07/19/2021',
             'c',
-            true)),
+            true
+        )),
         new TravelEvent(new EventTrip('Western Family Trip - 2015',
             'Trip was great',
             '03/24/2015',
             '04/02/2015',
             'd',
-            true)),
+            true
+        )),
         new TravelEvent(new EventTrip('Eastern Family Trip - 2016',
             'Trip was great',
             '03/24/2016',
             '04/02/2016',
             'e',
-            false)),
+            false
+        )),
       ]
     }
   },
 
   methods: {
     deleteIt(item) {
-      this.$emit('remove-trip', item);
+      //item.$emit('remove-trip', item);
+      this.trips.splice(this.trips.indexOf(item),1);
     },
-    sort(property) {
-      if (property === 'item.title') {
+    addTrip(){
+      this.trips.push(this.newTrip);
+      //clear the form
+      this.newTrip = {
+        title: '',
+        tripDescription: '',
+        arrivalDate: '',
+        returnDate: '',
+        key: '',
+        favorite: false,
+      }
+    },
+      sort(property) {
+      console.log('sorting by', property);
+      if (property === 'title') {
         this.trips.sort((a, b) => {
           if (a.title.toLowerCase() < b.title.toLowerCase()) {
             return -1;
@@ -104,11 +132,24 @@ export default {
           console.log('sorting by', property);
           return 0;
         })
-      } else if (property === 'item.returnDate') {
+      } else if (property === 'returnDate') {
         this.trips.sort((a, b) => {
           console.log('sorting by', property);
-          return new Date(a.item.returnDate) - new Date(b.item.returnDate);
+          return new Date(a.returnDate) - new Date(b.returnDate);
         })
+      } else if (property === 'favorite') {
+        this.trips.sort((a, b) => {
+          if (a.favorite === true && b.favorite === false) {
+            return -1;
+          } else if (a.favorite === false && b.favorite === true) {
+            return 1;
+          }
+          console.log(a, property);
+          return 0;
+        })
+        // return this.trips.filter(function(EventTrip){
+        //   return EventTrip.favorite == true;
+        // })
       }
     },
   },

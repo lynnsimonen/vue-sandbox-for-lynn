@@ -1,5 +1,5 @@
 <template>
-  <div class="card-body">
+  <div class="card-body"> EVENT ITEM CARD
     <component :is="itemCardComponent()" :item="item"/>
   </div>
 </template>
@@ -16,6 +16,7 @@ export default {
   },
   methods: {
     itemCardComponent(){
+      console.log('EVENT ITEM CARD');
       //return item.constructor.name + 'Card';  Will fail with webpack???
       return "TripDetails"
     }
