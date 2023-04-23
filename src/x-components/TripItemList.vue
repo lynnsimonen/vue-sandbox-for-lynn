@@ -147,9 +147,6 @@ export default {
           console.log(a, property);
           return 0;
         })
-        // return this.trips.filter(function(EventTrip){
-        //   return EventTrip.favorite == true;
-        // })
       }
     },
   },

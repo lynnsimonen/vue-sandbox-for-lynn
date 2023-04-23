@@ -1,5 +1,5 @@
 <template>
-  <div class="card-body"> EVENT ITEM CARD
+  <div class="card-body">
     <component :is="itemCardComponent()" :item="item"/>
   </div>
 </template>
