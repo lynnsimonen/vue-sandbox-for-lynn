@@ -1,11 +1,12 @@
 <template>
   <div><br>
-    <q-form class="q-flex row q-mb-sm q-pa-xs">
+    <q-form @submit.prevent="search" class="q-flex row q-mb-sm q-pa-xs">
       <q-input
           v-model="keyword"
-          placeholder="event name or "
           label="Search"
-          class="col sort-form"
+          placeholder="trip name or description"
+          class="col"
+          filled
       />
     </q-form>
   </div>
@@ -26,5 +27,7 @@ export default {
 </script>
 
 <style scoped>
-
+.search-form {
+  background-color: #2c8c37;
+}
 </style>

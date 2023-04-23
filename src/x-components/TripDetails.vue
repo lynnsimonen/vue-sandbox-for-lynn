@@ -157,13 +157,6 @@ q-header {
   color: white;
 }
 
-#noteId{
-  color:#2c8c37;
-}
-
-.sort-form {
- color: #2c8c37;
-}
 
 .q-field__control-container .q-field__native span {
   color: white;

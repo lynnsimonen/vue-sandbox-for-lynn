@@ -1,19 +1,24 @@
 <template>
   <div>
     <div class="row justify-between">
-      <div class="col-3 col-sm-2">
+      <div class="col-5 col-sm-4">
         <sort-form
             :sort-function="sort"
         ></sort-form>
       </div>
+      <div class="col-6 col-md-4">
+        <search-form>
+          :search-function="search"
+        </search-form>
+      </div>
     </div>
-    <q-list bordered >
-      <div  v-for="item in trips"
-            :item="item"
-            :key="item.key"
-
+    <q-list bordered>
+      <div v-for="item in trips"
+           :item="item"
+           :key="item.key"
+           @delete-trip="(emittedTrip) => {$emit('delete-trip', emittedTrip)}"
       >
-      <event-item-card :item="item"/>
+        <event-item-card :item="item"/>
       </div>
     </q-list>
   </div>
@@ -21,20 +26,22 @@
 
 <script>
 console.log("TRIP ITEM LIST");
+import SearchForm from "@/x-components/SearchForm.vue"
 import SortForm from "@/x-components/SortForm.vue";
 import EventItemCard from "@/x-components/EventItemCard.vue";
 import {EventTrip, PhotoGroupArray, PhotosArray} from "@/x-models/trip-model";
 import TravelEvent from "@/x-models/travel-event-model";
+
 export default {
   name: 'TripItemList',
   emits: "delete-it",
   props: {
-    item: { type: TravelEvent},
-    itemToBeSorted: undefined,
+    item: {type: TravelEvent},
   },
-  components: {SortForm, EventItemCard},
+  components: {SearchForm, SortForm, EventItemCard},
   data() {
     return {
+      //filteredTrips: [...this],
       trips: [
         new TravelEvent(new EventTrip('France Family Trip - 2018',
             'France was great. France was great.  France was great.  France was great.  France was great.  France was great.  France was great.',
@@ -43,21 +50,21 @@ export default {
             'a',
             true,
             [new PhotoGroupArray
-                ('Day One',
-                    [new PhotosArray
-                                    ('src/images/FR_01.jpg', 'caption-one'),
-                                    ('src/images/FR_02.jpg', 'caption-one'),
-                                  ]),
-                        ('Day Two',
-                              [new PhotosArray
-                                    ('src/images/FR_03.jpg', 'caption-one'),
-                                    ('src/images/FR_01.jpg', 'caption-one'),
-                                ]),
-                        ('Day Three',
-                              [new PhotosArray
-                                    ('src/images/FR_03.jpg', 'caption-one'),
-                                    ('src/images/FR_01.jpg', 'caption-one'),
-                                ]), //end last photoGroupArray
+            ('Day One',
+                [new PhotosArray
+                ('src/images/FR_01.jpg', 'caption-one'),
+                  ('src/images/FR_02.jpg', 'caption-one'),
+                ]),
+              ('Day Two',
+                  [new PhotosArray
+                  ('src/images/FR_03.jpg', 'caption-one'),
+                    ('src/images/FR_01.jpg', 'caption-one'),
+                  ]),
+              ('Day Three',
+                  [new PhotosArray
+                  ('src/images/FR_03.jpg', 'caption-one'),
+                    ('src/images/FR_01.jpg', 'caption-one'),
+                  ]), //end last photoGroupArray
 
             ], //end new TravelEvent
         )),
@@ -69,13 +76,13 @@ export default {
             'b',
             false,
             [new PhotoGroupArray
-                            ('Day Two',
-                                [new PhotosArray
-                                ('one.jpg', 'caption-one'),
-                                  ('src/images/FR_01.JPG','caption-two'),
-                                  ('three.jpg','caption-three')
-                                ])
-                            ]
+            ('Day Two',
+                [new PhotosArray
+                ('one.jpg', 'caption-one'),
+                  ('src/images/FR_01.JPG', 'caption-two'),
+                  ('three.jpg', 'caption-three')
+                ])
+            ]
         )),
 
         new TravelEvent(new EventTrip('Island Family Trip - 2021',
@@ -99,16 +106,23 @@ export default {
             'e',
             false
         )),
-      ]
+      ],
     }
   },
-
+  computed: {
+    // search(keyword) {
+    //   filteredTrips = this.filteredTrips.filter((trip) => {
+    //     return trip.title.toLowerCase().includes(keyword.toLowerCase())
+    //         || trip.tripDescription.toLowerCase().includes(keyword.toLowerCase());
+    //   })
+    // }
+  },
   methods: {
     deleteIt(item) {
       //item.$emit('remove-trip', item);
-      this.trips.splice(this.trips.indexOf(item),1);
+      this.trips.splice(this.trips.indexOf(item), 1);
     },
-    addTrip(){
+    addTrip() {
       this.trips.push(this.newTrip);
       //clear the form
       this.newTrip = {
@@ -120,7 +134,7 @@ export default {
         favorite: false,
       }
     },
-      sort(property) {
+    sort(property) {
       console.log('sorting by', property);
       if (property === 'title') {
         this.trips.sort((a, b) => {
@@ -148,6 +162,13 @@ export default {
           return 0;
         })
       }
+    },
+    search(keyword) {
+      this.filteredTrips = this.filteredTrips.filter((trip) => {
+        return trip.title.toLowerCase().includes(keyword.toLowerCase())
+            || trip.tripDescription.toLowerCase().includes(keyword.toLowerCase());
+      })
+
     },
   },
 }
@@ -179,7 +200,7 @@ export default {
   color: yellow;
 }
 
-.sort-form {
+.sort-form, .q-form {
   background-color: #2c8c37;
   padding-left: 15px;
 }
@@ -187,6 +208,7 @@ export default {
 .q-field__control-container .q-field__native span {
   color: white;
 }
+
 .q-field__control-container .q-field__label {
   color: white;
 }

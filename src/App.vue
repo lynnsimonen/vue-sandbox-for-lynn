@@ -65,11 +65,6 @@
   color: yellow;
 }
 
-.sort-form {
-  background-color: #2c8c37;
-  border-radius: 25px;
-}
-
 .q-field__control-container .q-field__native span {
   color: white;
 }
