@@ -17,8 +17,8 @@ export default {
   methods: {
     itemCardComponent(){
       console.log('EVENT ITEM CARD');
-      //return item.constructor.name + 'Card';  Will fail with webpack???
       return "TripDetails"
+      //return item.constructor.name + 'Card';  Will fail with webpack???
     }
   }
 }

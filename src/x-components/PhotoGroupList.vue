@@ -2,31 +2,37 @@
   <q-card-section>
     <div class="row q-col-gutter-x-xs q-col-gutter-y-lg">
 
-        PHOTO GROUP LIST
+      PHOTO GROUP LIST .VUE
 
-      <!--  List each photo here-->
-<!--      <photo-group-->
-<!--          v-for="photoGroup in photoGroups"-->
-<!--          :photo-group="photoGroup"-->
-<!--          :key="photoGroup.title"-->
-<!--      ></photo-group>-->
-
+      <!--  List each photogroup here-->
+      <q-list>
+        <div v-for="item in trips"
+             :item="item"
+             :key="item.title"
+        >
+          <!-- PhotoGroupList imports Photos -->
+          <photo-group-item :item="item"/>
+        </div>
+      </q-list>
     </div>
   </q-card-section>
 </template>
 
 <script>
-
-import {EventTrip} from "@/x-models/trip-model";
 console.log("PHOTOGROUP-LIST");
-
+import {PhotoGroup} from "@/x-models/trip-model";
+import PhotoGroupItem from "@/x-components/PhotoGroupItem.vue";
 export default {
   name: "PhotoGroupList",
-  components: {},
-  props: {
-    item: {type: EventTrip }
+  components: {
+    PhotoGroupItem
   },
-  created(){
+  props: {
+    item: {type: PhotoGroup}
+  },
+  methods: { },
+  created() {
+    console.log('typeof photoGroupItem:'+typeof photoGroupItem)
   },
 }
 </script>
@@ -34,25 +40,25 @@ export default {
 <style lang="scss">
 
 //ALL TRIPS TAB: Photo Groups Text
-.header-bar{
+.header-bar {
   background-color: #2c8c37;
   color: white;
 }
 
-.photo-group{
+.photo-group {
   text-align: center;
 }
 
-.q-btn__content .block{
+.q-btn__content .block {
   color: #2c8c37;
 }
 
-.photo-group-box{
+.photo-group-box {
   display: flex;
   justify-content: center;
 }
 
-.photo-group, .q-carousel{
+.photo-group, .q-carousel {
   margin: 0;
   padding: 0;
   font-weight: bold;
@@ -61,14 +67,14 @@ export default {
 
 
 //ALL TRIPS TAB: qty of photos in photo group
-  .add-photo-icon {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    margin-top: 20px;
-    padding: 25px;
+.add-photo-icon {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-top: 20px;
+  padding: 25px;
 
-  }
+}
 
 .q-carousel {
   padding: 5px;
@@ -88,36 +94,36 @@ export default {
 }
 
 .uploaders {
-  margin:50px 50px 50px 25px;
+  margin: 50px 50px 50px 25px;
 }
 
-.add-photo-group{
+.add-photo-group {
   margin: 50px 50px 25px 50px;
 }
 
-.q-input{
+.q-input {
   color: #2c8c37;
 }
 
 //ALL TRIPS: Trip Description labels
-  .q-field__label {
-    color:#2c8c37;
-  }
+.q-field__label {
+  color: #2c8c37;
+}
 
 //ALL TRIPS: camera icon color
-  .add-group-all-trips{
-    color: #2c8c37;
-    padding: 0;
-    margin-left: 15px;
-  }
+.add-group-all-trips {
+  color: #2c8c37;
+  padding: 0;
+  margin-left: 15px;
+}
 
 //FAVORITES TAB...
 //favorite star icon
 
-  .fav-trip{
-    display: flex;
-    align-items: self-start;
-  }
+.fav-trip {
+  display: flex;
+  align-items: self-start;
+}
 
 .q-field__native {
   color: #2c8c37;
@@ -126,30 +132,30 @@ export default {
 }
 
 //ADD A TRIP TAB
-  #form-id * {
-    font-size: 10px;
-    color: #2c8c37;
-    line-height: 10px;
-    margin: 0;
-  }
+#form-id * {
+  font-size: 10px;
+  color: #2c8c37;
+  line-height: 10px;
+  margin: 0;
+}
 
-.q-field__native{
-  margin:0;
+.q-field__native {
+  margin: 0;
   padding: 10px;
 }
 
-.btn-submit-div-wrap{
+.btn-submit-div-wrap {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.submit-new-trip{
+.submit-new-trip {
   background-color: rgba(44, 140, 55, 0.3);
   color: white;
 }
 
-.q-date__header-title, .q-date__header-subtitle{
+.q-date__header-title, .q-date__header-subtitle {
   color: #2c8c37;
   font-weight: bolder;
 }

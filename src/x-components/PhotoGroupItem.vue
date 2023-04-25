@@ -1,6 +1,6 @@
 <template>
   <div class="photo-col q-pa-md col-6 col-md-3 col-lg-2">
-
+PHOTOGROUP
     <div class="photo-group-box">
       <div class="photo-group ">{{ item.title}}
 
@@ -35,7 +35,7 @@
 <script>
 import {EventTrip} from "@/x-models/trip-model";
 export default {
-  name: "PhotoGroup",
+  name: "PhotoGroupItem",
   components: {},
   props: {
     item: {type: EventTrip }

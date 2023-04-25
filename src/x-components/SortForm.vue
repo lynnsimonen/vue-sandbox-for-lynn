@@ -4,7 +4,7 @@
       <q-select
           v-model="sortValue"
           :options="sortOptions"
-         @update:model-value="sort"
+          @update:model-value="sort"
           label="  Sort By"
           class="col sort-form"
       />
@@ -15,7 +15,6 @@
 <script>
 import TravelEvent from "@/x-models/travel-event-model";
 
-console.log("SORT FORM\n");
 export default {
   name: "SortForm",
   props: {
@@ -35,7 +34,7 @@ export default {
   },
   methods: {
     sort() {
-      console.log('dropdown updated:', this.sortValue.value);
+      console.log('this.sortValue.value:', this.sortValue.value);
       this.sortFunction(this.sortValue.value)
     },
   }

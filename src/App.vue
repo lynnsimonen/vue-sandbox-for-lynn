@@ -60,7 +60,9 @@
   color: #2c8c37;
   font-size: 30px;
 }
-
+body{
+  background-color: gray;
+}
 .star-yellow .q-tab__icon, .star-yellow .q-icon {
   color: yellow;
 }
@@ -102,7 +104,7 @@
   display: flex;
   align-items: center;
   text-align: center;
-  background-color: #2c8c37;
+  background-color: #51ab5b;
 }
 
 </style>

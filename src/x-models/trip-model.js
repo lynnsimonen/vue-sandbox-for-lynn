@@ -1,5 +1,5 @@
 function EventTrip(title, tripDescription, arrivalDate, returnDate, key,
-                   favorite, photoGroupArray) {
+                   favorite, photoGroup) {
     this.title = title ?? '';
     this.tripDescription = tripDescription ?? '';
     // add any additional properties
@@ -7,33 +7,33 @@ function EventTrip(title, tripDescription, arrivalDate, returnDate, key,
     this.returnDate = returnDate ?? '';
     this.key = key ?? '';
     this.favorite = favorite ?? false;
-    this.photoGroupArray = photoGroupArray ?? [];
+    this.photoGroup = photoGroup ?? [];
     this.save = function(newObj){
         this.title = newObj.title;
-        this.photosArray = newObj.photosArray;
+        this.photo = newObj.photo;
     }
 }
 EventTrip.type = "EventTrip";
 
-function PhotoGroupArray(title, photosArray,photo, photoCaption) {  //this will auto-label the title & photosArray  "Chapters"
+function PhotoGroup(title, photo,photoFilePath, photoCaption) {  //this will auto-label the title & photosArray  "Chapters"
     this.title = title ?? '';
-    this.photosArray = photosArray ?? [];
-    this.photo = photo ?? '';
+    this.photo = photo ?? [];
+    this.photoFilePath = photoFilePath ?? '';
     this.photoCaption = photoCaption ?? '';
     this.save = function(newObj){
-        this.photo = newObj.photo;
+        this.photoFilePath = newObj.photoFilePath;
         this.photoCaption = newObj.photoCaption;
     }
 }
 
-function PhotosArray(photo, photoCaption){   //this will auto-label the photos & photoCaptions "topics"
-    this.photo = photo ?? '';
+function Photo(photoFilePath, photoCaption){   //this will auto-label the photos & photoCaptions "topics"
+    this.photoFilePath = photoFilePath ?? '';
     this.photoCaption = photoCaption ?? '';
     this.save = function(newObj){
-        this.photo = newObj.photo;
+        this.photoFilePath = newObj.photoFilePath;
         this.photoCaption = newObj.photoCaption;
     }
 }
 
-export {EventTrip, PhotoGroupArray, PhotosArray};
+export {EventTrip, PhotoGroup, Photo};
 

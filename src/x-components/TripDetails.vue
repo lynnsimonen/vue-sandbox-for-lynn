@@ -72,19 +72,17 @@
           <span class="photo-groups col-11">Photo Groups</span>
         </div>
       </q-card-section>
-        <photo-group-list></photo-group-list>
-      <!-- bind here
-      <photo-group-list
-          v-bind:photoGroups="trip.photoGroupArray"
-      ></photo-group-list>  -->
+      <!-- Trip Details import PhotoGroupLists - bind here -->
+      <photo-group-list :item="item"/>
     </q-card>
   </q-expansion-item>
 
 </template>
 
 <script>
-import {EventTrip} from "@/x-models/trip-model";
+import {PhotoGroup} from "@/x-models/trip-model";
 import PhotoGroupList from "@/x-components/PhotoGroupList.vue";
+import TravelEvent from "@/x-models/travel-event-model";
 
 console.log("TRIP DETAILS");
 export default {
@@ -92,19 +90,17 @@ export default {
   data() {
     return {
       isFavorite: false,
+      photoGroupItem: Object,
     }
   },
   components: {PhotoGroupList},
   props: {
-    item: {type: EventTrip }
-  },
-  //this will tell me if I'm pulling the correct data... look on console
-  created(){
-
+    item: {type: PhotoGroup }
   },
   computed: {
   },
   methods: {
+    TravelEvent,
     isFav(item){
      item.favorite = !item.favorite;
       return item.favorite;
@@ -119,7 +115,11 @@ export default {
       // To calculate the no. of days between two dates
       return Difference_In_Time / (1000 * 3600 * 24);
     },
-  }
+  },
+  //this will tell me if I'm pulling the correct data... look on console
+  created(){
+    console.log('*** typeof Object: ' + typeof Object)
+  },
 }
 
 </script>
